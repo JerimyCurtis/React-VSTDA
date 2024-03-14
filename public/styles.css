@@ -55,7 +55,7 @@
     background: #136a8a; /* Fallback for old browsers */
     background: -webkit-linear-gradient(to left, #b3e6eb, #6281c9); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #b3e6eb, #6281c9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: white;
+    color: rgb(23, 13, 13);
     font-family: Arial, sans-serif;
   }
   

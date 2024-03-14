@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<App />, document.getElementById('root'));
 
 class App extends Component {
   constructor(props) {
