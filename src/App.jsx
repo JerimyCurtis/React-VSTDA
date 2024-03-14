@@ -2,53 +2,49 @@ import React, { Component } from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
 
+ReactDOM.render(<App />, document.getElementById('root'));
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       todos: [],
     };
+
+    this.addTodo = this.addTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
+    this.updateTodo = this.updateTodo.bind(this);
   }
 
-  addTodo = (todoText, priority) => {
+  addTodo(todoText, priority) {
     const newTodo = {
-      id: Date.now(), // Simple unique ID, consider a better ID for a real app
+      id: Date.now(),
       text: todoText,
       priority,
       isCompleted: false,
     };
     this.setState({
-      todos: [...this.state.todos, newTodo],
+      todos: this.state.todos.concat(newTodo),
     });
-  };
+  }
 
-  deleteTodo = (id) => {
+  deleteTodo(id) {
     this.setState({
       todos: this.state.todos.filter(todo => todo.id !== id),
     });
-  };
+  }
 
-  toggleCompletion = (id) => {
+  updateTodo(id, updatedText, updatedPriority) {
     this.setState({
       todos: this.state.todos.map(todo => {
         if (todo.id === id) {
-          return { ...todo, isCompleted: !todo.isCompleted };
+          // Using Object.assign to replace the spread operator
+          return Object.assign({}, todo, { text: updatedText, priority: updatedPriority });
         }
         return todo;
       }),
     });
-  };
-
-  updateTodo = (id, updatedText, updatedPriority) => {
-    this.setState({
-      todos: this.state.todos.map(todo => {
-        if (todo.id === id) {
-          return { ...todo, text: updatedText, priority: updatedPriority };
-        }
-        return todo;
-      }),
-    });
-  };
+  }
 
   render() {
     return (
@@ -57,7 +53,7 @@ class App extends Component {
         <h2>Track all of the things</h2>
         <div className="row">
           <AddTodoForm addTodo={this.addTodo} />
-          <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} toggleCompletion={this.toggleCompletion} updateTodo={this.updateTodo} />
+          <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} updateTodo={this.updateTodo} />
         </div>
       </div>
     );

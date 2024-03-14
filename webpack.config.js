@@ -28,7 +28,10 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'file?name=[name].[ext]',
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
       },
     ],
   },
