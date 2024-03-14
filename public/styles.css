@@ -1,0 +1,17 @@
+.app {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .todo-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .todo-form, .todo-list {
+    flex: 1;
+  }
+  
+  /* Add more styles here for todo items based on priority */
+  
