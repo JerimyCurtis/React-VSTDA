@@ -1,14 +1,17 @@
-import React from 'react';
-import TodoItem from './TodoItem';
+var React = require('react');
+var TodoItem = require('./TodoItem');
 
-const TodoList = ({ todos, deleteTodo, updateTodo }) => {
-  return (
-    <div className="todo-list">
-      {todos.map(todo => (
-        <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} updateTodo={updateTodo} />
-      ))}
-    </div>
-  );
-};
+var TodoList = React.createClass({
+  render: function() {
+    var todoItems = this.props.todos.map(function(todo, index) {
+      return <TodoItem key={index} todo={todo} />;
+    });
+    return (
+      <div className="todo-list">
+        {todoItems}
+      </div>
+    );
+  }
+});
 
-export default TodoList;
+module.exports = TodoList;
