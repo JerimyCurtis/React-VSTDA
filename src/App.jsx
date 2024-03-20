@@ -1,77 +1,30 @@
-var React = require('react');
-var TodoForm = require('./TodoForm');
-var TodoList = require('./TodoList');
-var EditTodoForm = require('./EditTodoForm');
+// src/App.jsx
+import React, { useState } from 'react';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
+import './app.css'; // Assuming your CSS file is named app.css
 
-var App = React.createClass({
-  getInitialState: function() {
-    return {
-      todos: [],
-      editTodoIndex: -1
-    };
-  },
+function App() {
+  const [todos, setTodos] = useState([]);
 
-  handleAddTodo: function(newTodo) {
-    this.setState(function(prevState) {
-      return {
-        todos: prevState.todos.concat(newTodo)
-      };
-    });
-  },
+  const addTodo = (todo) => {
+    setTodos([...todos, todo]);
+  };
 
-  handleEditTodo: function(index) {
-    this.setState({ editTodoIndex: index });
-  },
+  const updateTodo = (updatedTodo) => {
+    setTodos(todos.map((todo) => (todo.id === updatedTodo.id ? updatedTodo : todo)));
+  };
 
-  handleUpdateTodo: function(updatedTodo) {
-    this.setState(function(prevState) {
-      var updatedTodos = prevState.todos.slice();
-      updatedTodos[prevState.editTodoIndex] = updatedTodo;
-      return {
-        todos: updatedTodos,
-        editTodoIndex: -1
-      };
-    });
-  },
+  const deleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
-  handleDeleteTodo: function(index) {
-    this.setState(function(prevState) {
-      return {
-        todos: prevState.todos.filter(function(_, i) { return i !== index; }),
-        editTodoIndex: prevState.editTodoIndex === index ? -1 : prevState.editTodoIndex // Reset editTodoIndex if the deleted todo is the one being edited
-      };
-    });
-  },
+  return (
+    <div className="app">
+      <TodoForm addTodo={addTodo} />
+      <TodoList todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
+    </div>
+  );
+}
 
-  handleToggleComplete: function(index) {
-    this.setState(function(prevState) {
-      var updatedTodos = prevState.todos.slice();
-      updatedTodos[index].completed = !updatedTodos[index].completed;
-      return {
-        todos: updatedTodos
-      };
-    });
-  },
-
-  render: function() {
-    return (
-      <div className="App">
-        <TodoForm addTodo={this.handleAddTodo} /> {/* Render TodoForm component */}
-        <TodoList
-          todos={this.state.todos}
-          editTodo={this.handleEditTodo}
-          deleteTodo={this.handleDeleteTodo}
-          toggleComplete={this.handleToggleComplete}
-        />
-        {this.state.editTodoIndex !== -1 && (
-          <EditTodoForm
-            todo={this.state.todos[this.state.editTodoIndex]}
-            updateTodo={this.handleUpdateTodo}
-          />
-        )}
-      </div>
-    );
-  }
-});
-
-module.exports = App;
+export default App;
