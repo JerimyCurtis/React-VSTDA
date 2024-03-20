@@ -1,4 +1,3 @@
-// src/components/TodoItem.jsx
 import React, { useState } from 'react';
 
 function TodoItem({ todo, updateTodo, deleteTodo }) {

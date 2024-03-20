@@ -1,4 +1,3 @@
-// src/components/TodoForm.jsx
 import React, { useState } from 'react';
 
 function TodoForm({ addTodo }) {
@@ -7,6 +6,7 @@ function TodoForm({ addTodo }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!text.trim()) return;
     addTodo({
       id: Date.now(),
       text,
