@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const NullLoader = require('null-loader');
 
 module.exports = {
   entry: './src/index.jsx',
@@ -10,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+  mode: 'development',
   module: {
     rules: [
       {
@@ -32,12 +32,6 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'less-loader',
-          {
-            loader: NullLoader,
-            options: {
-              esModule: false,
-            },
-          },
         ],
       },
       {
@@ -63,7 +57,10 @@ module.exports = {
         ],
       },
       {
-        test: require.resolve('fs'),
+        // This rule handles the 'fs' module issue if it's required by any client code.
+        // It's an uncommon scenario in client-side bundles, typically a mistake or a Node.js-specific code being bundled inadvertently.
+        // If you don't have such a case, this rule might not be necessary.
+        test: /node_modules\/(fs)/,
         use: 'null-loader',
       },
     ],
@@ -74,58 +71,13 @@ module.exports = {
       filename: 'styles.css',
     }),
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './public/index.html',
     }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
+    // If you were trying to shim 'fs' for client-side, you would uncomment the following:
+    // fallback: { "fs": false },
   },
 };
 
-
-// const path = require('path');
-
-// module.exports = {
-//   context: path.join(__dirname, '/src'),
-
-//   entry: {
-//     javascript: './index'
-//   },
-
-//   output: {
-//     filename: 'bundle.js',
-//     path: path.join(__dirname, '/dist'),
-//   },
-
-//   resolve: {
-//     alias: {
-//       react: path.join(__dirname, 'node_modules', 'react')
-//     },
-//     extensions: ['.js', '.jsx']
-//   },
-
-//   module: {
-//     loaders: [
-//       {
-//         test: /\.jsx?$/,
-//         exclude: /node_modules/,
-//         loaders: ['babel-loader'],
-//       },
-//       {
-//         test: /\.html$/,
-//         loader: 'file-loader',
-//         options: {
-//           name: '[name].[ext]',
-//         },
-//         module: {
-//           rules: [
-//             {
-//               test: require.resolve('fs'),
-//               use: 'null-loader',
-//             },
-//           ],
-//         },
-//       },
-//     ],
-//   },
-// };
