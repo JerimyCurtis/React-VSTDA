@@ -1,17 +1,21 @@
-var React = require('react');
+import React from 'react';
 var TodoItem = require('./TodoItem');
 
-var TodoList = React.createClass({
-  render: function() {
-    var todoItems = this.props.todos.map(function(todo, index) {
-      return <TodoItem key={index} todo={todo} />;
-    });
-    return (
-      <div className="todo-list">
-        {todoItems}
-      </div>
-    );
-  }
-});
+const TodoList = ({ todos, editTodo, deleteTodo, toggleComplete }) => {
+  return (
+    <div className="view-todos card">
+      {todos.map((todo, index) => (
+        <TodoItem
+          key={index}
+          todo={todo}
+          index={index}
+          editTodo={editTodo}
+          deleteTodo={deleteTodo}
+          toggleComplete={toggleComplete}
+        />
+      ))}
+    </div>
+  );
+};
 
 module.exports = TodoList;

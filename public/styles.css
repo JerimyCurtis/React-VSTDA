@@ -1,75 +1,73 @@
-.app {
-    width: 80%;
-    margin: auto;
-    text-align: center;
-  }
-  
-  .todo-form {
-    flex: 1;
-    margin-right: 20px;
-  }
-  .todo-list{
-    float: 2;
-  }
-  
-  /* Styles for the textarea elements in add and edit forms */
-  textarea.create-todo-text, textarea.update-todo-text {
-    width: 100%;
-    min-height: 8em;
-    margin-bottom: 1em;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding doesn't affect overall width */
-  }
-  
-  /* Select dropdown styles for priority selection */
-  select.create-todo-priority, select.update-todo-priority {
-    width: 100%;
-    margin-bottom: 1em;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: white;
-    box-sizing: border-box;
-  }
-  
-  /* Button styles for actions like add, edit, save, delete */
-  button, .create-todo, .update-todo, .edit-todo, .delete-todo {
-    cursor: pointer;
-    padding: 8px 16px;
-    margin-bottom: 1em;
-    background-color: #4CAF50; /* Green */
-    color: white;
-    border: none;
-    border-radius: 4px;
-  }
-  
-  /* Styles for individual todo items */
-  .todo-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 8px;
-    margin-bottom: 1em;
-    text-align: left; /* Aligns text to the left within todo items */
-  }
-  
-  /* Global and utility styles */
-  body {
-    background: #136a8a; /* Fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #b3e6eb, #6281c9); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #b3e6eb, #6281c9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    color: rgb(23, 13, 13);
-    font-family: Arial, sans-serif;
-  }
-  
-  .strike-through {
-    text-decoration: line-through;
-  }
-  
-  /* Flex container for the form and list */
-  .row {
-    display: flex;
-    justify-content: space-between;
-  }
-  
+/* App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Center content vertically */
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.create-todo-text,
+.update-todo-text {
+  width: 100%;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+.create-todo-priority,
+.update-todo-priority {
+  margin-bottom: 10px;
+}
+
+.view-todos {
+  width: 100%;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.todo-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.priority-1 {
+  color: red;
+}
+
+.priority-2 {
+  color: orange;
+}
+
+.priority-3 {
+  color: green;
+}
+
+.edit-todo,
+.delete-todo {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Add styling for textarea */
+.create-todo-text {
+  height: 100px; /* Adjust height as needed */
+}
+.textarea {
+  background: red;
+}
