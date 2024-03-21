@@ -1,10 +1,11 @@
+// src/components/TodoItem.jsx
 import React, { useState } from 'react';
 
 function TodoItem({ todo, updateTodo, deleteTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(todo.text);
 
-  const handleEdit = () => {
+  const handleSave = () => {
     updateTodo({
       ...todo,
       text: editedText,
@@ -13,8 +14,14 @@ function TodoItem({ todo, updateTodo, deleteTodo }) {
     setIsEditing(false);
   };
 
+  // Determine priority label class based on todo priority
+  const priorityClass = `priority-label priority-${todo.priority === '1' ? 'high' : todo.priority === '2' ? 'medium' : 'low'}`;
+
   return (
-    <li className={`todo-item ${todo.priority === '1' ? 'high' : todo.priority === '2' ? 'medium' : 'low'}`}>
+    <li className={`todo-item ${priorityClass}`}>
+      <span className={priorityClass}>
+        {todo.priority === '1' ? 'High' : todo.priority === '2' ? 'Medium' : 'Low'}
+      </span>
       {isEditing ? (
         <>
           <textarea
@@ -22,7 +29,7 @@ function TodoItem({ todo, updateTodo, deleteTodo }) {
             value={editedText}
             onChange={(e) => setEditedText(e.target.value)}
           />
-          <button onClick={handleEdit} className="update-todo">Save</button>
+          <button onClick={handleSave} className="update-todo">Save</button>
         </>
       ) : (
         <>

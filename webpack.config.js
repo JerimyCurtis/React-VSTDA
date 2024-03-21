@@ -24,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.less$/,
@@ -67,17 +67,13 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: 'styles.css',
-    }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
-    // If you were trying to shim 'fs' for client-side, you would uncomment the following:
-    // fallback: { "fs": false },
+    
   },
 };
 
