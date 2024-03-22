@@ -1,3 +1,4 @@
+// src/components/TodoForm.jsx
 import React, { useState } from 'react';
 
 function TodoForm({ addTodo }) {
@@ -20,7 +21,7 @@ function TodoForm({ addTodo }) {
   return (
     <form onSubmit={handleSubmit}>
       <textarea
-        className="create-todo-text"
+        className="create-todo-text" // Confirming this class name matches the test's expectation
         value={text}
         onChange={(e) => setText(e.target.value)}
       />

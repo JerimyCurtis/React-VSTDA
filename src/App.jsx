@@ -7,17 +7,16 @@ import './app.css';
 
 function App() {
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // Initialize with today's date in YYYY-MM-DD format
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPriority, setFilterPriority] = useState("");
 
   useEffect(() => {
-    // Update local storage whenever todos change
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   const addTodo = (todo) => {
-    const newTodo = { ...todo, date: selectedDate, id: Date.now() }; // Adding unique id and selectedDate to todo
+    const newTodo = { ...todo, date: selectedDate, id: Date.now() };
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
@@ -31,7 +30,6 @@ function App() {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  // Filter todos based on selectedDate, searchTerm, and filterPriority
   const filteredTodos = todos.filter((todo) =>
     todo.date === selectedDate &&
     todo.text.toLowerCase().includes(searchTerm.toLowerCase()) &&
