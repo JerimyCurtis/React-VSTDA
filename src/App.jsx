@@ -2,41 +2,37 @@
 import React, { useState, useEffect } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
-import DatePicker from './components/DatePicker'; // Import DatePicker
+import DatePicker from './components/DatePicker';
 import './app.css';
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(""); // State for managing selected date
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
-  const [filterPriority, setFilterPriority] = useState(""); // State for filter priority
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos")) || []);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // Initialize with today's date in YYYY-MM-DD format
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterPriority, setFilterPriority] = useState("");
 
   useEffect(() => {
-    // Load todos from localStorage on initial render
-    const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-    setTodos(storedTodos);
-  }, []);
-
-  useEffect(() => {
-    // Save todos to localStorage whenever they change
+    // Update local storage whenever todos change
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   const addTodo = (todo) => {
-    const newTodo = { ...todo, date: selectedDate }; // Ensure each todo has a date property
-    setTodos([...todos, newTodo]);
+    const newTodo = { ...todo, date: selectedDate, id: Date.now() }; // Adding unique id and selectedDate to todo
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
-  const updateTodo = (updatedTodo) => {
-    setTodos(todos.map(todo => todo.id === updatedTodo.id ? updatedTodo : todo));
+  const updateTodo = (id, updatedFields) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => (todo.id === id ? { ...todo, ...updatedFields } : todo))
+    );
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  // Filter todos based on selectedDate, search term, and filter priority
-  const filteredTodos = todos.filter(todo =>
+  // Filter todos based on selectedDate, searchTerm, and filterPriority
+  const filteredTodos = todos.filter((todo) =>
     todo.date === selectedDate &&
     todo.text.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (filterPriority ? todo.priority === filterPriority : true)
