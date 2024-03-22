@@ -30,11 +30,14 @@ function App() {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
-  const filteredTodos = todos.filter((todo) =>
-    todo.date === selectedDate &&
-    todo.text.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (filterPriority ? todo.priority === filterPriority : true)
-  );
+  const filteredTodos = todos.filter((todo) => {
+    // Apply date filter only if search term and priority filter are not set
+    const matchesDate = searchTerm || filterPriority ? true : todo.date === selectedDate;
+    const matchesSearchTerm = todo.text.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesPriority = filterPriority ? todo.priority === filterPriority : true;
+
+    return matchesDate && matchesSearchTerm && matchesPriority;
+  });
 
   return (
     <div className="app">
