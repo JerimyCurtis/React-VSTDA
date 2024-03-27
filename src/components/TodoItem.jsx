@@ -1,11 +1,10 @@
-// src/components/TodoItem.jsx
 import React, { useState } from 'react';
 
 function TodoItem({ todo, updateTodo, deleteTodo }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(todo.text);
 
-  // Function to format the date as 'Day, MM/DD/YY'
+ 
   const formatDate = (dateString) => {
     const options = { weekday: 'short', year: '2-digit', month: '2-digit', day: '2-digit' };
     return new Date(dateString).toLocaleDateString('en-US', options);
@@ -19,7 +18,7 @@ function TodoItem({ todo, updateTodo, deleteTodo }) {
     setIsEditing(false);
   };
 
-  // Determine priority label class based on todo priority
+  
   const priorityClass = `priority-label priority-${todo.priority === '1' ? 'high' : todo.priority === '2' ? 'medium' : 'low'}`;
 
   return (

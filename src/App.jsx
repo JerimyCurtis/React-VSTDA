@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
@@ -31,7 +30,7 @@ function App() {
   };
 
   const filteredTodos = todos.filter((todo) => {
-    // Apply date filter only if search term and priority filter are not set
+    
     const matchesDate = searchTerm || filterPriority ? true : todo.date === selectedDate;
     const matchesSearchTerm = todo.text.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPriority = filterPriority ? todo.priority === filterPriority : true;

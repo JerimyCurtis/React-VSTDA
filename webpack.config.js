@@ -57,9 +57,6 @@ module.exports = {
         ],
       },
       {
-        // This rule handles the 'fs' module issue if it's required by any client code.
-        // It's an uncommon scenario in client-side bundles, typically a mistake or a Node.js-specific code being bundled inadvertently.
-        // If you don't have such a case, this rule might not be necessary.
         test: /node_modules\/(fs)/,
         use: 'null-loader',
       },

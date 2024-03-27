@@ -1,4 +1,3 @@
-// src/components/DatePicker.jsx
 import React from 'react';
 
 const DatePicker = ({ selectedDate, setSelectedDate }) => {
